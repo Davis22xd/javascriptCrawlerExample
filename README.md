@@ -4,7 +4,15 @@ This project is an example of how to use cheerio js for making a crawler to get 
 
 ## Getting Started
 
-Download the project if it doesn't appear in your machine the nodes_modules folder run npm install.  When you are done for runing the program just write in console node crawler.js
+Download the project if it doesn't appear in your machine the nodes_modules folder run npm install.  
+
+When you are done for using the crawler you should import it as in the example folder and call the crawler method 
+setting the max number of entries and the URL.
+To run the example write in the command line node example/crawlerRunExample.js
+
+### Test
+ For this example we use mocha to test the application
+ To run a test is only neccesary to run in the main folder npm test
 
 
 ### Prerequisites
@@ -17,7 +25,6 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Contributing
 
-# Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
 email, or any other method with the owners of this repository before making a change. 

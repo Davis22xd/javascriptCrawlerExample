@@ -1,41 +1,50 @@
 var request = require('request');
 var cheerio = require('cheerio');
 
-const MAX_ENTRIES = 30;
-var mainList= [];
+var MAX_ENTRIES = 30;
+var mainList = [];
+var pageToVisit = '';
 
-var pageToVisit = "https://news.ycombinator.com/";
+function setParameters(maxEntries, pageToVisit) {
+    this.pageToVisit = pageToVisit;
+    this.maxEntries = maxEntries;
+}
 
-console.log("Visiting page " + pageToVisit);
+function crawl(maxEntries, pageToVisit) {
 
-request(pageToVisit, function(error, response, body) {
-    if(error) {
-        console.log("Error: " + error);
-    }
-    // Check status code (200 is HTTP OK)
-    console.log("Status code: " + response.statusCode);
-    if(response.statusCode === 200) {
-        // Parse the document body
-        var $ = cheerio.load(body);
+    setParameters(maxEntries, pageToVisit);
 
-        console.log("Page title:  " + $('title').text());
+    console.log("Visiting page " + pageToVisit);
 
-        setAllAttributesToMainList($);
+    request(pageToVisit, function (error, response, body) {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        // Check status code (200 is HTTP OK)
+        console.log("Status code: " + response.statusCode);
+        if (response.statusCode === 200) {
+            // Parse the document body
+            var $ = cheerio.load(body);
 
-        printAll30Entries();
+            console.log("Page title:  " + $('title').text());
 
-        performMoreThanFiveWordsProcess();
-        performLessThanSixWordsProcess();
+            setAllAttributesToMainList($);
 
-    }
-});
+            printAll30Entries();
+
+            performMoreThanFiveWordsProcess();
+            performLessThanSixWordsProcess();
+
+        }
+    });
+}
 
 function setAllAttributesToMainList($) {
-    setListFromAtributte($,'.rank','rank');
-    setListFromAtributte($,'.storylink','title');
-    setListFromAtributte($,'.score','score');
+    setListFromAtributte($, '.rank', 'rank');
+    setListFromAtributte($, '.storylink', 'title');
+    setListFromAtributte($, '.score', 'score');
     convertScoreInNumbers();
-    setItemsIdInlistItems($,'.athing');
+    setItemsIdInlistItems($, '.athing');
 
     var commentsList = getCommentsListIfContainWords($);
     setCommentsinMainList(commentsList);
@@ -62,7 +71,7 @@ function performLessThanSixWordsProcess() {
     console.log(lessThanSixWordsList);
 }
 
-function compareByNumberOfComments(a,b) {
+function compareByNumberOfComments(a, b) {
     if (a.numberOfComments < b.numberOfComments)
         return -1;
     if (a.numberOfComments > b.numberOfComments)
@@ -71,7 +80,7 @@ function compareByNumberOfComments(a,b) {
 }
 
 
-function compareByScore(a,b) {
+function compareByScore(a, b) {
     if (a.numberOfComments < b.numberOfComments)
         return -1;
     if (a.numberOfComments > b.numberOfComments)
@@ -80,19 +89,19 @@ function compareByScore(a,b) {
 }
 
 function convertScoreInNumbers() {
-    mainList.forEach(function(element) {
+    mainList.forEach(function (element) {
         var score;
         var finalIndex = element.score.indexOf('points');
-        score = element.score.substring(0,finalIndex -1);
+        score = element.score.substring(0, finalIndex - 1);
         element.score = Number(score);
     }.bind(this));
 }
 
 function getEntriesWithMoreThanFiveWordsInTitle() {
     var list = [];
-    mainList.forEach(function(element) {
+    mainList.forEach(function (element) {
         var words = countWords(element.title);
-        if(words>5){
+        if (words > 5) {
             list.push(element);
         }
     }.bind(this));
@@ -101,9 +110,9 @@ function getEntriesWithMoreThanFiveWordsInTitle() {
 
 function getEntriesWithLessThanWordsInTitle() {
     var list = [];
-    mainList.forEach(function(element) {
+    mainList.forEach(function (element) {
         var words = countWords(element.title);
-        if(words<=5){
+        if (words <= 5) {
             list.push(element);
         }
     }.bind(this));
@@ -118,9 +127,9 @@ function getEntriesWithLessThanWordsInTitle() {
 //@param {element} could be an tag name, id, class, property
 //
 ////
-function setItemsIdInlistItems($,element) {
-    $(element).slice(0, MAX_ENTRIES).each(function(i, elem) {
-        mainList[i].id=$(this).attr('id');
+function setItemsIdInlistItems($, element) {
+    $(element).slice(0, MAX_ENTRIES).each(function (i, elem) {
+        mainList[i].id = $(this).attr('id');
     });
 }
 
@@ -133,12 +142,12 @@ function setItemsIdInlistItems($,element) {
 //@param {attribute} the name of the attribute to be set on each object
 //
 ////
-function setListFromAtributte($,element,attribute) {
-    $(element).slice(0, MAX_ENTRIES).each(function(i, elem) {
-        if(!mainList[i]){
+function setListFromAtributte($, element, attribute) {
+    $(element).slice(0, MAX_ENTRIES).each(function (i, elem) {
+        if (!mainList[i]) {
             mainList[i] = {};
         }
-        mainList[i][attribute]=$(this).text();
+        mainList[i][attribute] = $(this).text();
     });
 }
 
@@ -151,10 +160,10 @@ function setListFromAtributte($,element,attribute) {
 //@return {object} Object with the result of the comparison.
 //
 ////
-function getIdsFromComments($,link) {
+function getIdsFromComments($, link) {
     var relativeDirection = $(link).attr('href');
     var startNumber = relativeDirection.indexOf('=') + 1;
-    return relativeDirection.substring(startNumber, relativeDirection.length );
+    return relativeDirection.substring(startNumber, relativeDirection.length);
 }
 
 ////
@@ -179,7 +188,7 @@ function getLinksOfPage($) {
 //@return {object} Object with the result of the comparison.
 //
 ////
-function compareIfMatchCommentFormat($,link) {
+function compareIfMatchCommentFormat($, link) {
     var commentPattern = /^[0-9].+comments$/;
     var comment = $(link).text();
     var matchResult = comment.match(commentPattern);
@@ -200,9 +209,9 @@ function compareIfMatchCommentFormat($,link) {
 //@return {array} Description.
 //
 ////
-function addCommentToList($,list, comment, link, numberOfComments) {
+function addCommentToList($, list, comment, link, numberOfComments) {
     list.push(
-        {comments:comment, id :getIdsFromComments($,link), numberOfComments: Number(numberOfComments)}
+        {comments: comment, id: getIdsFromComments($, link), numberOfComments: Number(numberOfComments)}
     );
 }
 
@@ -219,19 +228,19 @@ function getCommentsListIfContainWords($) {
     var list = [];
     var numberOfComments = 0;
 
-    $(getLinksOfPage($)).each(function(i, link){
+    $(getLinksOfPage($)).each(function (i, link) {
 
         var matchResult = compareIfMatchCommentFormat($, link);
-        var comment = matchResult? matchResult.input: '';
+        var comment = matchResult ? matchResult.input : '';
 
-        if(matchResult){
+        if (matchResult) {
             var finalIndex = comment.indexOf('comments');
-            numberOfComments = comment.substring(0,finalIndex -1);
+            numberOfComments = comment.substring(0, finalIndex - 1);
 
-            addCommentToList($,list, comment, link, numberOfComments)
+            addCommentToList($, list, comment, link, numberOfComments)
         }
-        else if(comment === 'discuss'){
-            addCommentToList($,list, comment, link, numberOfComments);
+        else if (comment === 'discuss') {
+            addCommentToList($, list, comment, link, numberOfComments);
         }
     });
 
@@ -239,19 +248,19 @@ function getCommentsListIfContainWords($) {
 }
 
 ////
-  // Set the comment and the value of this in the corresponding item in the mainList
-  //
-  //@param {arrayList}   list of comments to set in mainList.
-  //
+// Set the comment and the value of this in the corresponding item in the mainList
+//
+//@param {arrayList}   list of comments to set in mainList.
+//
 ////
 function setCommentsinMainList(commentsList) {
     var commentsLenght = commentsList.length;
     var mainListLenght = mainList.length;
 
-    for(var i = 0; i< commentsLenght; i++) {
-        for (var j = 0; j< mainListLenght; j++){
+    for (var i = 0; i < commentsLenght; i++) {
+        for (var j = 0; j < mainListLenght; j++) {
 
-            if(mainList[j].id === commentsList[i].id){
+            if (mainList[j].id === commentsList[i].id) {
                 mainList[j].comments = commentsList[i].comments;
                 mainList[j].numberOfComments = commentsList[i].numberOfComments;
             }
@@ -261,13 +270,35 @@ function setCommentsinMainList(commentsList) {
 }
 
 //Count words in a string
-function countWords(str){
+countWords: function countWords(str) {
     var count = 0;
     var words = str.split(" ");
-    for (var i=0 ; i < words.length ; i++){
+    for (var i = 0; i < words.length; i++) {
         // inner loop -- do the count
-        if (words[i] != "")
+        if (words[i] !=="")
             count += 1;
     }
     return count;
 }
+
+
+module.exports = {
+    addCommentToList:addCommentToList,
+    countWords: countWords,
+    crawl:crawl,
+    getEntriesWithMoreThanFiveWordsInTitle:getEntriesWithMoreThanFiveWordsInTitle,
+    getEntriesWithLessThanWordsInTitle:getEntriesWithLessThanWordsInTitle,
+    convertScoreInNumbers: convertScoreInNumbers,
+    compareByNumberOfComments: compareByNumberOfComments,
+    compareByScore:compareByScore,
+    printAll30Entries: printAll30Entries,
+    setItemsIdInlistItems: setItemsIdInlistItems,
+    setCommentsinMainList: setCommentsinMainList,
+    getIdsFromComments:getIdsFromComments,
+    getLinksOfPage:getLinksOfPage,
+    compareIfMatchCommentFormat:compareIfMatchCommentFormat,
+    setListFromAtributte:setListFromAtributte,
+    getCommentsListIfContainWords: getCommentsListIfContainWords,
+};
+
+
