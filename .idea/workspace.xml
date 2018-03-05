@@ -2,36 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="08fe027e-9dc4-49f9-80d7-4b83d8c6ae37" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/example/crawlerRunExample.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/test/test.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/crawler.js" afterPath="$PROJECT_DIR$/crawler.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cheerio-tableparser/LICENSE" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cheerio-tableparser/README.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cheerio-tableparser/index.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cheerio-tableparser/package.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/querystringify/LICENSE" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/querystringify/README.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/querystringify/index.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/querystringify/package.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/requires-port/.npmignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/requires-port/.travis.yml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/requires-port/LICENSE" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/requires-port/README.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/requires-port/index.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/requires-port/package.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/requires-port/test.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/url-parse/LICENSE" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/url-parse/README.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/url-parse/dist/url-parse.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/url-parse/dist/url-parse.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/url-parse/index.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/url-parse/package.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -49,8 +21,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="-329">
-                <caret line="14" column="67" lean-forward="false" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="67" />
+              <first_editor relative-caret-position="210">
+                <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -172,7 +144,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1520187607884</updated>
-      <workItem from="1520187620997" duration="27793000" />
+      <workItem from="1520187620997" duration="28023000" />
     </task>
     <task id="LOCAL-00001" summary="Done get entries with more than 5 words in a line&#10;Done get entries with less than 6 words in a line">
       <created>1520211527496</created>
@@ -223,11 +195,18 @@
       <option name="project" value="LOCAL" />
       <updated>1520220689447</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="changed to module the crawler &#10;installed mocha to test the methods in the module&#10;created an example to be called when using the component&#10;created fisrt test">
+      <created>1520227269316</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1520227269316</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27793000" />
+    <option name="totallyTimeSpent" value="28023000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -239,9 +218,9 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.50277996" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32882884" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.49722" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32911393" sideWeight="0.49722" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29113925" sideWeight="0.4940429" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29113925" sideWeight="0.4940429" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -265,7 +244,8 @@
     <MESSAGE value="Changed first version of the package.json file" />
     <MESSAGE value="changed var to const for the max length attribute" />
     <MESSAGE value="CHANGED TYPE OF LICENSE" />
-    <option name="LAST_COMMIT_MESSAGE" value="CHANGED TYPE OF LICENSE" />
+    <MESSAGE value="changed to module the crawler &#10;installed mocha to test the methods in the module&#10;created an example to be called when using the component&#10;created fisrt test" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed to module the crawler &#10;installed mocha to test the methods in the module&#10;created an example to be called when using the component&#10;created fisrt test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -361,8 +341,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-329">
-            <caret line="14" column="67" lean-forward="false" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="67" />
+          <first_editor relative-caret-position="210">
+            <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
             <folding />
           </first_editor>
           <second_editor />

@@ -8,11 +8,11 @@ Download the project if it doesn't appear in your machine the nodes_modules fold
 
 When you are done for using the crawler you should import it as in the example folder and call the crawler method 
 setting the max number of entries and the URL.
-To run the example write in the command line node example/crawlerRunExample.js
+To run the example write in the command line:  node example/crawlerRunExample.js
 
 ### Test
  For this example we use mocha to test the application
- To run a test is only neccesary to run in the main folder npm test
+ To run a test is only neccesary to run in the main folder:  npm test
 
 
 ### Prerequisites
