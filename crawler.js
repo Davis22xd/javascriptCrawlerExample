@@ -20,31 +20,47 @@ request(pageToVisit, function(error, response, body) {
 
         console.log("Page title:  " + $('title').text());
 
-        setListFromAtributte($,'.rank','rank');
-        setListFromAtributte($,'.storylink','title');
-        setListFromAtributte($,'.score','score');
-        convertScoreInNumbers();
-        setItemsIdInlistItems($,'.athing');
+        setAllAttributesToMainList($);
 
-        var commentsList = getCommentsListIfContainWords($);
-        setCommentsinMainList(commentsList);
+        printAll30Entries();
 
-        console.log("The 30th first items in the page are:")
-        console.log(mainList);
-
-
-        console.log("Entries with more than five words in the title ordered by amount of comments: ");
-        moreThanFiveWordsList = getEntriesWithMoreThanFiveWordsInTitle();
-        moreThanFiveWordsList.sort(compareByNumberOfComments);
-        console.log(moreThanFiveWordsList);
-
-        console.log("Entries with less than or equal to five words in the title ordered by points: ");
-        lessThanSixWordsList = getEntriesWithLessThanWordsInTitle();
-        lessThanSixWordsList.sort(compareByScore);
-        console.log(lessThanSixWordsList);
+        performMoreThanFiveWordsProcess();
+        performLessThanSixWordsProcess();
 
     }
 });
+
+function setAllAttributesToMainList($) {
+    setListFromAtributte($,'.rank','rank');
+    setListFromAtributte($,'.storylink','title');
+    setListFromAtributte($,'.score','score');
+    convertScoreInNumbers();
+    setItemsIdInlistItems($,'.athing');
+
+    var commentsList = getCommentsListIfContainWords($);
+    setCommentsinMainList(commentsList);
+}
+
+
+function printAll30Entries() {
+    console.log("The 30th first items in the page are:")
+    console.log(mainList);
+}
+
+function performMoreThanFiveWordsProcess() {
+    console.log("Entries with more than five words in the title ordered by amount of comments: ");
+    moreThanFiveWordsList = getEntriesWithMoreThanFiveWordsInTitle();
+    moreThanFiveWordsList.sort(compareByNumberOfComments);
+    console.log(moreThanFiveWordsList);
+}
+
+
+function performLessThanSixWordsProcess() {
+    console.log("Entries with less than or equal to five words in the title ordered by points: ");
+    lessThanSixWordsList = getEntriesWithLessThanWordsInTitle();
+    lessThanSixWordsList.sort(compareByScore);
+    console.log(lessThanSixWordsList);
+}
 
 function compareByNumberOfComments(a,b) {
     if (a.numberOfComments < b.numberOfComments)
@@ -94,12 +110,29 @@ function getEntriesWithLessThanWordsInTitle() {
     return list;
 }
 
+////
+// Set the id in each object of an array
+// number of entries and set the corresponding attribute and value to each object in the mainList array
+//
+//@param {$}   cheerio object to be read.
+//@param {element} could be an tag name, id, class, property
+//
+////
 function setItemsIdInlistItems($,element) {
     $(element).slice(0, MAX_ENTRIES).each(function(i, elem) {
         mainList[i].id=$(this).attr('id');
     });
 }
 
+////
+// Given an tag name, property or id gets all the elements of that type, then slice the array result until the max
+// number of entries and set the corresponding attribute and value to each object in the mainList array
+//
+//@param {$}   cheerio object to be read.
+//@param {element} could be an tag name, id, class, property
+//@param {attribute} the name of the attribute to be set on each object
+//
+////
 function setListFromAtributte($,element,attribute) {
     $(element).slice(0, MAX_ENTRIES).each(function(i, elem) {
         if(!mainList[i]){
@@ -109,37 +142,108 @@ function setListFromAtributte($,element,attribute) {
     });
 }
 
+////
+// Extract the id of the relative direction of a link
+//
+//@param {$}   cheerio object to be read.
+//@param {link} relative path that has the id of entry
+//
+//@return {object} Object with the result of the comparison.
+//
+////
 function getIdsFromComments($,link) {
     var relativeDirection = $(link).attr('href');
     var startNumber = relativeDirection.indexOf('=') + 1;
     return relativeDirection.substring(startNumber, relativeDirection.length );
 }
 
+////
+// CGet all the links of a page
+//
+//@param {$}   cheerio object to be read.
+//
+//@return {array} Array of links of the page.
+//
+////
+function getLinksOfPage($) {
+    var links = $('a'); //jquery get all hyperlinks
+    return links;
+}
+
+////
+// Compare a string with the comment pattern to see if it is a comments line
+//
+//@param {$}   cheerio object to be read.
+//@param {link} relative path that has the id of entry
+//
+//@return {object} Object with the result of the comparison.
+//
+////
+function compareIfMatchCommentFormat($,link) {
+    var commentPattern = /^[0-9].+comments$/;
+    var comment = $(link).text();
+    var matchResult = comment.match(commentPattern);
+    return matchResult;
+}
+
+
+////
+// Push an item of type comment to the list that will contain all the comments
+// of comments
+//
+//@param {$}   cheerio object to be read.
+//@param {list} array of objects
+//@param {comment} string with the number of comments
+//@param {link} relative path that has the id of entry
+//@param {numberOfComments} number of comments
+//
+//@return {array} Description.
+//
+////
+function addCommentToList($,list, comment, link, numberOfComments) {
+    list.push(
+        {comments:comment, id :getIdsFromComments($,link), numberOfComments: Number(numberOfComments)}
+    );
+}
+
+////
+// Search all the links in file then search if there is a comment or a discuss and set the value of the comment in a list
+// of comments
+//
+//@param {$}   cheerio object to be read.
+//
+//@return {array} Description.
+//
+////
 function getCommentsListIfContainWords($) {
     var list = [];
     var numberOfComments = 0;
-    var links = $('a'); //jquery get all hyperlinks
-    $(links).each(function(i, link){
-        var commentPattern = /^[0-9].+comments$/;
-        var comment = $(link).text();
-        var matchResult = comment.match(commentPattern);
+
+    $(getLinksOfPage($)).each(function(i, link){
+
+        var matchResult = compareIfMatchCommentFormat($, link);
+        var comment = matchResult? matchResult.input: '';
 
         if(matchResult){
             var finalIndex = comment.indexOf('comments');
             numberOfComments = comment.substring(0,finalIndex -1);
-            list.push(
-                {comments:comment, id :getIdsFromComments($,link), numberOfComments: Number(numberOfComments)}
-                );
+
+            addCommentToList($,list, comment, link, numberOfComments)
         }
         else if(comment === 'discuss'){
-            list.push(
-                {comments:comment, id :getIdsFromComments($,link), numberOfComments: numberOfComments}
-            );
+            addCommentToList($,list, comment, link, numberOfComments);
         }
     });
+
     return list;
 }
 
+////
+  // Set the comment and the value of this in the corresponding item in the mainList
+  //
+  //@param {arrayList}   list of comments to set in mainList.
+  //
+////
 function setCommentsinMainList(commentsList) {
     var commentsLenght = commentsList.length;
     var mainListLenght = mainList.length;
@@ -156,6 +260,7 @@ function setCommentsinMainList(commentsList) {
     }
 }
 
+//Count words in a string
 function countWords(str){
     var count = 0;
     var words = str.split(" ");
