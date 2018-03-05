@@ -17,8 +17,6 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Contributing
 
-# Contributing
-
 When contributing to this repository, please first discuss the change you wish to make via issue,
 email, or any other method with the owners of this repository before making a change. 
 
@@ -36,6 +34,8 @@ Please note we have a code of conduct, please follow it in all your interactions
    do not have permission to do that, you may request the second reviewer to merge it for you.
    
 For more details please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+Repository: https://github.com/Davis22xd/javascriptCrawlerExample
 
 ## Author
 
