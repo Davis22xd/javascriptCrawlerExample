@@ -1,7 +1,7 @@
 var request = require('request');
 var cheerio = require('cheerio');
 
-var MAX_ENTRIES = 30;
+const MAX_ENTRIES = 30;
 var mainList= [];
 
 var pageToVisit = "https://news.ycombinator.com/";
