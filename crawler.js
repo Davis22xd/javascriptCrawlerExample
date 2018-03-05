@@ -1,7 +1,7 @@
 var request = require('request');
 var cheerio = require('cheerio');
 
-var MAX_ENTRIES = 30;
+var maxEntries = 30;
 var mainList = [];
 var pageToVisit = '';
 
@@ -81,9 +81,9 @@ function compareByNumberOfComments(a, b) {
 
 
 function compareByScore(a, b) {
-    if (a.numberOfComments < b.numberOfComments)
+    if (a.score < b.score)
         return -1;
-    if (a.numberOfComments > b.numberOfComments)
+    if (a.score > b.score)
         return 1;
     return 0;
 }
@@ -128,7 +128,7 @@ function getEntriesWithLessThanWordsInTitle() {
 //
 ////
 function setItemsIdInlistItems($, element) {
-    $(element).slice(0, MAX_ENTRIES).each(function (i, elem) {
+    $(element).slice(0, maxEntries).each(function (i, elem) {
         mainList[i].id = $(this).attr('id');
     });
 }
@@ -143,7 +143,7 @@ function setItemsIdInlistItems($, element) {
 //
 ////
 function setListFromAtributte($, element, attribute) {
-    $(element).slice(0, MAX_ENTRIES).each(function (i, elem) {
+    $(element).slice(0, maxEntries).each(function (i, elem) {
         if (!mainList[i]) {
             mainList[i] = {};
         }
@@ -291,7 +291,6 @@ module.exports = {
     convertScoreInNumbers: convertScoreInNumbers,
     compareByNumberOfComments: compareByNumberOfComments,
     compareByScore:compareByScore,
-    printAll30Entries: printAll30Entries,
     setItemsIdInlistItems: setItemsIdInlistItems,
     setCommentsinMainList: setCommentsinMainList,
     setParameters: setParameters,
