@@ -294,6 +294,7 @@ module.exports = {
     printAll30Entries: printAll30Entries,
     setItemsIdInlistItems: setItemsIdInlistItems,
     setCommentsinMainList: setCommentsinMainList,
+    setParameters: setParameters,
     getIdsFromComments:getIdsFromComments,
     getLinksOfPage:getLinksOfPage,
     compareIfMatchCommentFormat:compareIfMatchCommentFormat,
