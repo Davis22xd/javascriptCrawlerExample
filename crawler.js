@@ -27,11 +27,44 @@ request(pageToVisit, function(error, response, body) {
 
         var commentsList = getCommentsListIfContainWords($);
         setCommentsinMainList(commentsList);
-        console.log(mainList.length);
+
+        console.log("The 30th first items in the page are:")
         console.log(mainList);
+
+        console.log("Entries with more than five words in the title ordered by amount of comments: ");
+        moreThanFiveWordsList = getEntriesWithMoreThanFiveWordsInTitle();
+        console.log(moreThanFiveWordsList);
+
+        console.log("Entries with less than or equal to five words in the title ordered by points: ");
+        lessThanSixWordsList = getEntriesWithLessThanWordsInTitle();
+        console.log(lessThanSixWordsList);
+
 
     }
 });
+
+
+function getEntriesWithMoreThanFiveWordsInTitle() {
+    var list = [];
+    mainList.forEach(function(element) {
+        var words = countWords(element.title);
+        if(words>5){
+            list.push(element);
+        }
+    }.bind(this));
+    return list;
+}
+
+function getEntriesWithLessThanWordsInTitle() {
+    var list = [];
+    mainList.forEach(function(element) {
+        var words = countWords(element.title);
+        if(words<=5){
+            list.push(element);
+        }
+    }.bind(this));
+    return list;
+}
 
 function setItemsIdInlistItems($,element) {
     $(element).slice(0, MAX_ENTRIES).each(function(i, elem) {
@@ -79,9 +112,20 @@ function setCommentsinMainList(commentsList) {
         for (var j = 0; j< mainListLenght; j++){
 
             if(mainList[j].id === commentsList[i].id){
-                mainList[j].comment = commentsList[j].comment;
+                mainList[j].comment = commentsList[i].comment;
             }
 
         }
     }
+}
+
+function countWords(str){
+    var count = 0;
+    words = str.split(" ");
+    for (i=0 ; i < words.length ; i++){
+        // inner loop -- do the count
+        if (words[i] != "")
+            count += 1;
+    }
+    return count;
 }
